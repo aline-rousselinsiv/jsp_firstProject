@@ -17,10 +17,20 @@
 		border-collapse : collapse;
 		padding : 5px 10px;
 	}
+	th{
+		background-color: #ccc;
+	}
+	#search{
+		margin-bottom: 20px;
+	}
 </style>
 <body>
 	<%@ include file="../db/db.jsp" %>
 	<div id="container">
+	<div id="search">
+		검색어 : <input type="text" id="keyword">
+				<button onclick="fnSearch()">검색</button>
+	</div>
 		<table>
 			<tr>
 				<th>번호</th>
@@ -32,7 +42,15 @@
 		
 			<%
 				ResultSet rs = null;
-				String query = "SELECT B.*, TO_CHAR(CDATETIME, 'YYYY-MM-DD') CTIME FROM TBL_BOARD B";
+				String keyword = request.getParameter("keyword");
+				
+				String keywordQuery = "";
+				if(keyword != null){
+					keywordQuery = "WHERE TITLE LIKE '%" + keyword + "%'";
+				}
+				
+				String query = "SELECT B.*, TO_CHAR(CDATETIME, 'YYYY-MM-DD') CTIME "
+								+ "FROM TBL_BOARD B " + keywordQuery ;
 				rs = stmt.executeQuery(query);
 				
 				while(rs.next()){
@@ -60,7 +78,11 @@
 	function fnBoard(boardNo){
 		location.href = "Board-View.jsp?boardNo=" + boardNo;
 	}
-
+	
+	function fnSearch(){
+		let keyword = document.querySelector("#keyword").value;
+		location.href = "Board-List.jsp?keyword=" + keyword;
+	}
 
 </script>
 
