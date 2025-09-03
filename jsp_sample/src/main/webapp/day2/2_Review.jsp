@@ -1,0 +1,42 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>2_Review.jsp</title>
+</head>
+<body>
+	<!-- form 태그 -->
+	<!-- form태그는 submit이 실행 됐을 때 action에 있는 페이지로 이동한다. -->
+	<!-- action페이지로 이동 시 input태그에(+select, textarea) 있는 값들을 전달한다. -->
+	<!-- 태그들의 name이 key 역할을 한다. -->
+	
+	<form name="form" action="3_Review.jsp" method="get">
+		<div>이름: <input name="userName"></div>
+		<div>나이: <input name="age" ></div>
+		<div>
+			<input type="submit" value="전달">
+			<input type="button" value="검증후 전달" onclick="fnCheck()" >
+		</div>
+	</form>
+	
+
+</body>
+</html>
+<script>
+
+	function fnCheck(){
+		let form = document.form;
+		if(form.userName.value.length == 0){
+			alert("이름을 입력해주세요.");
+			form.userName.focus();
+			return;
+		}
+		
+		form.submit();
+	}
+
+
+</script>
+
