@@ -60,6 +60,11 @@
 		%>
 		
 		</table>
+		<div>
+			<a href="Stu_Add.jsp">
+				<input type="button" value="학생 추가">
+			</a>
+		</div>
 	</div>
 	
 	
