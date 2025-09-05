@@ -24,6 +24,11 @@
 	}
 	a{
 		text-decoration: none;
+		color: black;
+		
+	}
+	a:hover{
+		background-color: grey;
 	}
 	.page a {
 		text-decoration: none;
@@ -45,13 +50,15 @@
 <body>
 	<%@ include file="db.jsp" %>
 	<%
+	
 		// EMO TABLE 조회 
 		// 사원들의 급여등급 + 부서이름 포함해서 조회
 		// EMP, SALGRADE, DEPT
 		String query = "SELECT EMPNO, ENAME, JOB, SAL, D.DNAME, GRADE "
 						+ "FROM EMP E "
 						+ "INNER JOIN SALGRADE S ON E.SAL BETWEEN S.LOSAL AND S.HISAL "
-						+ "INNER JOIN DEPT D ON E.DEPTNO = D.DEPTNO";
+						+ "INNER JOIN DEPT D ON E.DEPTNO = D.DEPTNO "
+						+ "ORDER BY GRADE DESC";
 	
 		ResultSet rs = stmt.executeQuery(query);
 	%>
@@ -71,7 +78,9 @@
 		%>
 			<tr <%= grade >= 4 ? "class='grade'" : "" %>>
 				<td> <%= rs.getString("EMPNO") %> </td>
-				<td> <%= rs.getString("ENAME") %> </td>
+				<td>
+					 <a href="Emp-View.jsp?empNo=<%= rs.getString("EMPNO") %>"><%= rs.getString("ENAME") %></a> 
+				</td>
 				<td> <%= rs.getString("JOB") %> </td>
 				<td> <%= rs.getString("SAL") %> </td>
 				<td> <%= rs.getString("DNAME") %> </td>

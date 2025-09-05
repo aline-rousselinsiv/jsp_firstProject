@@ -5,11 +5,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	input[readonly]{
+		background-color: #eee;
+		border: 2px solid #eee;
+	}
+</style>
+
 </head>
 <body>
 	<form name="form" action="Emp-Add-Result.jsp">
 		<div>
 			사번 : <input name="empNo">
+			<input type="button" value="중본체크" onclick="fnCheck()" >
 		</div>
 		<div>
 			이름 : <input name="empName">
@@ -30,14 +38,30 @@
 </body>
 </html>
 <script>
+	let addFlg = false;
+
 	function fnAdd(){
 		let form = document.form;
-		form.submit();
+		if(addFlg){
+			form.submit();	
+		} else {
+			alert("중복체그 확인 후 제출해주세요.");
+		}
+		
 	}
-	
-
-
-
+	function fnCheck(){
+		let form = document.form ;
+		let empNo = form.empNo.value;
+		window.open(`Id-Check.jsp?empNo=\${empNo}`, "check", "width=300, height=300");
+	}
+	function fnReturn(flg){
+		let form = document.form;
+		if(flg == "N"){
+			let obj = form.empNo;
+			obj.readOnly = true;
+			addFlg = true;
+		}
+	}
 </script>
 
 

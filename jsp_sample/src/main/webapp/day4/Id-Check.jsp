@@ -4,24 +4,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Id-check.jsp</title>
+<title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="../db/db.jsp" %>
+	<%@ include file="db.jsp" %>
 	<% 
-		String stuNo = request.getParameter("stuNo");
-		String query = "SELECT * FROM STUDENT "
-						+ "WHERE STU_NO = '" + stuNo + "'";
+		String empNo = request.getParameter("empNo");
+		String query = "SELECT * FROM EMP "
+						+ "WHERE EMPNO = '" + empNo + "'";
 		ResultSet rs = stmt.executeQuery(query);
 		
 		if(rs.next()){
 	%>
-		<div>이미 사용중인 학번입니다.</div>
+		<div>이미 사용중인 사번입니다.</div>
 		<input id="check" name="flg" value="Y" hidden>
 	<%		
 		} else {
 	%>
-		<div>사용 가능한 학번입니다.</div>
+		<div>사용 가능한 사번입니다.</div>
 		<input id="check" name="flg" value="N" hidden>
 	<%		
 		}
@@ -30,17 +30,16 @@
 		<input type="button" value="되돌아가기" onclick="fnBack()">
 	</div>
 	
-	
 </body>
 </html>
 <script>
-	
 	function fnBack(){
 		let flg = document.querySelector("#check").value;
-		window.opener.fnReturn(flg);
+		window.opener.fnReturn(flg); 
+		//calls parent's fnReturn
+		//lets the popup send data back to the parent page before closing.						
 		window.close();
 	}
 </script>
-
 
 
