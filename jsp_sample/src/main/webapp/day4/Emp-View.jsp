@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Emp-View.jsp</title>
 <style>
 	#container{
 	width : 700px;
@@ -51,7 +51,7 @@
 		// 사번, 이름 상사(MGR)의 이름, 소속부서의 평균 급여, 부서 이름
 		String query = "SELECT E.EMPNO, E.ENAME, E2.ENAME AS MGR_NAME, E.SAL, AVG_SAL, D.DNAME "
 					 + "FROM EMP E "
-					 + "INNER JOIN EMP E2 ON E.MGR = E2.EMPNO "
+					 + "LEFT JOIN EMP E2 ON E.MGR = E2.EMPNO "
 					 + "INNER JOIN DEPT D ON E.DEPTNO = D.DEPTNO "
 					 + "INNER JOIN (SELECT DEPTNO, AVG(SAL) AVG_SAL FROM EMP GROUP BY DEPTNO) T "
 					 + "ON E.DEPTNO = T.DEPTNO "
@@ -95,9 +95,27 @@
 					    
 	%>
 	
+	<div>
+		<input type="button" value="삭제" onclick="fnRemove()">
+	</div>
+	
+	<input id="empNo" value="<%= empNo %>" hidden> 
+	<!-- we store the empNo value in HTML  -->
 	
 </body>
 </html>
+<script>
+	function fnRemove(){
+		if(!confirm("정말 삭제하겠습니까?")){
+			return;
+		}
+		let empNo = document.querySelector("#empNo").value;
+		// We retrieve it in script to send it to the new page
+		location.href="Emp-Remove.jsp?empNo="+empNo;
+	}
+
+
+</script>
 
 
 

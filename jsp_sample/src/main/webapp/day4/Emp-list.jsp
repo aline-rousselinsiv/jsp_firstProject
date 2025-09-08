@@ -27,9 +27,6 @@
 		color: black;
 		
 	}
-	a:hover{
-		background-color: grey;
-	}
 	.page a {
 		text-decoration: none;
 		color: black;
